@@ -1,16 +1,23 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private float score = 0;
+    private FallTrigger[] pins;
+
+    private void Start()
     {
-        
+        pins = FindObjectsByType<FallTrigger>(FindObjectsSortMode.None);
+
+        foreach (FallTrigger pin in pins)
+        {
+            pin.OnPinFall.AddListener(IncrementScore);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void IncrementScore()
     {
-        
+        score++;
     }
 }
